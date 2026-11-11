@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+body {
+  margin: 0; min-height: 100vh; color: #E8ECF8; font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  font-variant-numeric: tabular-nums; background-color: #060912; background-attachment: fixed;
+  background-image:
+    radial-gradient(900px 520px at 10% -10%, rgba(92, 225, 255, .13), transparent 60%),
+    radial-gradient(800px 520px at 96% 0%, rgba(179, 140, 255, .13), transparent 60%),
+    radial-gradient(700px 420px at 50% 112%, rgba(242, 193, 78, .08), transparent 60%);
+}
+.font-display { font-family: 'Bricolage Grotesque', 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: -0.02em; }
+
+@layer components {
+  .glass {
+    background: linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.02));
+    border: 1px solid rgba(255,255,255,.09); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    border-radius: 18px; box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 24px 50px -28px rgba(0,0,0,.85);
+  }
+  .btn { @apply rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-diamond disabled:opacity-40; }
+  .btn-primary { @apply border-diamond/40 bg-diamond/15 text-diamond hover:bg-diamond/25; }
+  .btn-danger { @apply border-down/40 bg-down/15 text-down hover:bg-down/25; }
+  .input { @apply w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm outline-none focus:border-diamond/60; }
+  .label { @apply mb-1 block text-xs text-muted; }
+}
+
+/* Glowing chart lines (one class per asset) */
+.line-gold .recharts-line-curve, .line-gold .recharts-area-curve { filter: drop-shadow(0 0 6px rgba(242,193,78,.65)); }
+.line-diamond .recharts-line-curve, .line-diamond .recharts-area-curve { filter: drop-shadow(0 0 6px rgba(92,225,255,.65)); }
+.line-bitcoin .recharts-line-curve, .line-bitcoin .recharts-area-curve { filter: drop-shadow(0 0 6px rgba(179,140,255,.7)); }
+
+@keyframes flashUp { from { color: #2EE6A6; text-shadow: 0 0 18px rgba(46,230,166,.6); } to { color: inherit; text-shadow: none; } }
+@keyframes flashDown { from { color: #FF5D7D; text-shadow: 0 0 18px rgba(255,93,125,.6); } to { color: inherit; text-shadow: none; } }
+.flash-up { animation: flashUp 1s ease-out; }
+.flash-down { animation: flashDown 1s ease-out; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee { animation: marquee 40s linear infinite; }
+.marquee:hover { animation-play-state: paused; }
+@keyframes pulseDot { 50% { opacity: .35; } }
+.pulse { animation: pulseDot 2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .marquee, .pulse, .flash-up, .flash-down { animation: none; } }
